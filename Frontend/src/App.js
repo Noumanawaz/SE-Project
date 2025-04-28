@@ -19,12 +19,23 @@ import Contactus from "./pages/home/contact";
 import AboutUs from "./pages/home/about";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import { StudentContext } from "./api/studentContext";
-import StudentDashboard from "./pages/Student/StudentDashboard";
 
+import ViewDonor from "./pages/Admin/ViewDonor";
+import StudentCurrentCases from "./pages/Student/StudentCurrentCases";
+import Messaging from "./pages/Messaging";
+import DonorDonationCase from "./pages/Donor/DonorDonationCase";
+
+
+import StudentDashboard from "./pages/Student/StudentProfile";
+import PersonalDataForm from "./pages/Student/StudentApplicationForm";
+import Feedbacklist from "./pages/Admin/Feedbacklist";
 import PaymentForm from "./pages/Donor/DonorDashboard";
+import Profile from "./pages/Profile";
+import { StudentContext } from "./api/studentContext";
+import DonorSponsoredDetails from "./pages/Donor/donorSponsoreddetails";
+import FeedbackForm from "./components/feedback";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
-
+import SponsoredStudentDetails from "./pages/Admin/ViewStudent";
 // import Dashboard from "./pages/Student/StudentDashboard"
 
 function App() {
@@ -69,13 +80,23 @@ function App() {
 
           {/* Admin Routes */}
           <Route path="/admin/admin_dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
-          
+          <Route path="/student_current_cases" element={<AdminRoute><StudentCurrentCases /></AdminRoute>} />
+          <Route path="/messaging" element={<AdminRoute><Messaging /></AdminRoute>} />
+          <Route path="/donor_requested_case_view" element={<AdminRoute><DonorDonationCase /></AdminRoute>} />
+          <Route path="/feebackresponses" element={<AdminRoute><Feedbacklist /></AdminRoute>} />
+          <Route path="/sponsoredStudentdetails" element={<AdminRoute><SponsoredStudentDetails /></AdminRoute>} />
+
 
           {/* Student Routes */}
           <Route path="/student/student_dashboard" element={<StudentRoute><StudentDashboard /></StudentRoute>} />
-          
+          <Route path="/student_application" element={<StudentRoute><PersonalDataForm /></StudentRoute>} />
+          <Route path="/student/feedback" element={<StudentRoute><FeedbackForm /></StudentRoute>} />
+
           {/* Donor Routes */}
           <Route path="/donor/donor_dashboard" element={<DonorRoute><PaymentForm /></DonorRoute>} />
+          <Route path="/profile" element={<DonorRoute><Profile /></DonorRoute>} />
+          <Route path="/donor/feedback" element={<DonorRoute><FeedbackForm /></DonorRoute>} />
+          <Route path="/donor/sponsored-student-details/" element={<DonorRoute><DonorSponsoredDetails /></DonorRoute>} />
           <Route path="/*" element={<><h1>Page not found</h1></>} />
         </Routes>
       </BrowserRouter>

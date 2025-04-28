@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+
 const StudentSchema = new Schema({
   first_name: {
     type: String,
@@ -34,40 +35,17 @@ const StudentSchema = new Schema({
     type: String,
     required: true,
   },
-  first_name: {
-    type: String,
-    required: true,
+  hasFilledApplication : {
+    type: Boolean,
+    default: false,
   },
-  last_name: {
+  status: {
     type: String,
-    required: true,
+    default: "pending",
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  phone_no: {
-    type: String,
-    required: true,
-  },
-  cnic: {
-    type: String,
-    required: true,
-  },
-  institution: {
-    type: String,
-    required: true,
-  },
-  class_level: {
-    type: String,
-    required: true,
-  },
+  
 });
 
 const Student = mongoose.model("students", StudentSchema);
+
 module.exports = Student;

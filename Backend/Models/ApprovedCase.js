@@ -1,42 +1,56 @@
-const mongoose = require("mongoose");
-const { Schema } = mongoose;
-const ApprovedCaseSchema = new Schema({
-  admin: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "admins",
-    required: true,
+const mongoose = require('mongoose');
+
+const ApprovedCaseSchema = new mongoose.Schema({
+  studentEmail: {
+    type: String,
+    required: [true, 'Student email is required'],
+    trim: true,
+    lowercase: true
   },
-  request: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "requests",
-    required: true,
+  donorEmail: {
+    type: String,
+    required: [true, 'Donor email is required'],
+    trim: true,
+    lowercase: true
   },
-  startDate: {
+  adminEmail: {
+    type: String,
+    required: [true, 'Admin email is required'],
+    trim: true,
+    lowercase: true
+  },
+  paymentProof: {
+    type: String,
+    required: [true, 'Payment proof is required']
+  },
+  description: {
+    type: String,
+    required: [true, 'Description is required'],
+    trim: true
+  },
+  approvedDate: {
     type: Date,
-    required: true,
+    default: Date.now
   },
-  endDate: {
-    type: Date,
-    required: true,
-  },
-  payment_timeline: {
-    type: String, // here payment timeline will tell when the payment will be done
-    required: true, // e.g "1 month , 1 year 6 month etc"
-  },
-  postedDate: {
-    type: Date,
-    default: Date.now,
-    
-  },
-  total_payments: {
-    type: Number,
-    required: true,
-  },
-  payments_completed: {
-    type: Number,
-    required: true,
-  },
+  status: {
+    type: String,
+    default: 'Approved',
+    enum: ['Approved', 'Pending', 'Rejected']
+  }
+}, {
+  timestamps: true,
+  collection: 'approvedcases' // Explicitly set collection name
 });
 
-const ApprovedCase = mongoose.model("approved_case", ApprovedCaseSchema);
+// Add middleware for logging
+ApprovedCaseSchema.pre('save', function(next) {
+  console.log('Saving ApprovedCase:', this);
+  next();
+});
+
+ApprovedCaseSchema.post('save', function(doc) {
+  console.log('Saved ApprovedCase:', doc);
+});
+
+const ApprovedCase = mongoose.model('approved_cases', ApprovedCaseSchema);
 module.exports = ApprovedCase;
